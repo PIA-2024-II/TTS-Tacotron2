@@ -10,7 +10,7 @@ from models.waveglow import WaveGlow
 # Configuración del entorno y parámetros
 DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 print(DATA_DIR)
-TRANSCRIPT_FILE = os.path.join(DATA_DIR, "transcripts pc Daniel.txt")
+TRANSCRIPT_FILE = os.path.join(DATA_DIR, "transcripts pc usuario.txt")
 PHONEME_DICT_FILE = os.path.join(DATA_DIR, "mapudungun_fonemas_diccionario.txt")
 CHECKPOINT_DIR = "checkpoints"
 BATCH_SIZE = 16
