@@ -11,13 +11,25 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-## Para entrenar
+## Preparación de entorno
+
+```bash
+bash setup_environment.sh
+```
+
+## Preparación del dataset
+
+```bash
+python process_transcripts.py
+```
+
+## Entrenar
 Ejecuta el servicio con:
 
 ```bash
 python train.py
 ```
-## Para generar audio
+## Generar audio
 Ejecuta el servicio con:
 
 ```bash

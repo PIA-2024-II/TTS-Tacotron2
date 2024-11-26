@@ -11,8 +11,8 @@ DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 TRANSCRIPT_FILE = os.path.join(DATA_DIR, "transcripts pc usuario.txt")
 PHONEME_DICT_FILE = os.path.join(DATA_DIR, "mapudungun_fonemas_diccionario.txt")
 CHECKPOINT_DIR = "checkpoints"
-BATCH_SIZE = 16
-EPOCHS = 10
+BATCH_SIZE = 8
+EPOCHS = 1e-4
 
 # Verificación de la existencia de archivos necesarios
 if not os.path.exists(TRANSCRIPT_FILE):
@@ -124,12 +124,12 @@ def train(tacotron2, waveglow, audio_paths, texts):
         for i in range(0, len(audio_paths), BATCH_SIZE):
             batch_audio_paths = audio_paths[i:i + BATCH_SIZE]
             batch_text = texts[i:i + BATCH_SIZE]
-            
             max_length = max(len(text_to_phoneme_indices(text, phoneme_dict, phoneme_to_idx)) for text in batch_text)
             batch_text_tensor = text_to_indices_padded(batch_text, phoneme_dict, phoneme_to_idx, max_length)
 
             # Forward pass Tacotron2
             mel_spectrogram = tacotron2(batch_text_tensor)
+            
             if mel_spectrogram.shape[1] != 80:  # Ajuste para coincidir con los 80 canales
                 mel_spectrogram = channel_adjust(mel_spectrogram.transpose(1, 2))
 
@@ -156,7 +156,7 @@ def train(tacotron2, waveglow, audio_paths, texts):
             loss.backward()
             optimizer.step()
 
-            if i % 100 == 0:
+            if i % 1000 == 0:
                 save_checkpoint(tacotron2, waveglow, epoch, i)
 
 # Función principal
